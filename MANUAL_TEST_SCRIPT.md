@@ -1,42 +1,58 @@
-# Tap Duel: Official Manual UI Test Script
+# 🎬 Tap Duel: Official Demo Recording Script 🎬
 
-Follow this click-by-click script to verify the sequential UI logic end-to-end on your local machine.
+Welcome to the **Tap Duel** live demo sequence! Follow this step-by-step guide to capture a flawless, continuous recording of the MagicBlock Ephemeral Rollups integration.
 
-### **Preparation**
-1. Ensure your local dev server is running (already verified, running at `http://127.0.0.1:5173`).
-2. Open Chrome (or your preferred browser) and navigate to exactly: **`http://127.0.0.1:5173`**.
+---
 
-### **Step 1: Connect & Lobby**
-3. On the start screen, you will see the large "TAP DUEL" title.
-4. Click the **"🔥 Use Burner Wallet"** button. (This will generate a throwaway session wallet and load the Lobby).
-5. You should now see the title **"Ready to Battle? (Sequential Turns)"**.
+### 🌟 **Pre-Flight Checklist**
+- [x] Ensure your local dev server is running on `http://127.0.0.1:5174/`.
+- [x] Pre-fund the burner wallet (if you haven't already, just copy the address from the UI and send it 0.05 SOL).
+- [x] Take a deep breath. You got this! 🚀
 
-### **Step 2: Player 1's Turn**
-6. Click the **"⚔️ START MATCH (P1)"** button.
-7. You will briefly see the text "Delegating to Ephemeral Rollup..." and "Syncing ER State...".
-8. The screen will transition to a red header that says exactly: **"PLAYER 1'S TURN"**.
-9. The timer will begin counting down from 15s.
-10. Click the big **"👆 TAP!"** button furiously before the timer hits 0. Notice the "Local Taps" counter going up.
+---
 
-### **Step 3: The Transition (Crucial Verification)**
-11. When the timer hits 0, the screen will completely change.
-12. You MUST see the title: **"Player 1 Finished! (Score: [number])"** and the text **"Pass the device to Player 2."**
-13. This is the transition screen proving the game format is fully sequential.
+### 🕹️ **Phase 1: Connect & Lobby**
+1. **Action:** Navigate to **`http://127.0.0.1:5174`** in your browser.
+2. **Visual:** You'll be greeted by the neon "TAP DUEL" title screen.
+3. **Action:** Click the **"🔥 Use Burner Wallet"** button. 
+4. **Result:** A throwaway session wallet is loaded instantly, bypassing Phantom popups. You'll enter the **Lobby** phase.
 
-### **Step 4: Player 2's Turn**
-14. Click the blue button labeled: **"⚔️ START PLAYER 2"**.
-15. The screen will transition back to the gameplay view, this time with the header: **"PLAYER 2'S TURN"**.
-16. The timer will count down from 15s again.
-17. Click the **"👆 TAP!"** button furiously. Make sure you get a different amount of taps than Player 1 so we can clearly see a winner.
+---
 
-### **Step 5: Winner Screen & Undelegate**
-18. When the timer hits 0, the match ends.
-19. You will see a large title declaring the winner (e.g., **"Player 1 Wins!"**, **"Player 2 Wins!"**, or **"It's a Tie!"**).
-20. Below the winner text, verify you see both players' final delta scores displayed distinctly:
-    - `Player 1 (Delta: [end] - [start])`
-    - `Player 2 (Delta: [end] - [start])`
-21. Finally, click the **"📤 Commit Match"** button.
-22. Wait a few seconds for the status text below the buttons to say **"Committed!"**, proving the final state successfully undelegated back to the Devnet base layer.
+### ⚔️ **Phase 2: Player 1's Turn**
+1. **Action:** In the Lobby, click **"⚔️ START MATCH (P1)"**.
+2. **Visual:** Watch the status text: *"Delegating to Ephemeral Rollup..."* -> *"Syncing ER State..."* 
+3. **Result:** The UI snaps into a red-themed **PLAYER 1'S TURN** screen.
+4. **Action:** The 15-second timer starts! Mash the **"👆 TAP!"** button as furiously as you can! 
+   *(Notice the "Local Taps" counter skyrocketing!)*
 
-### **Completion**
-If every step above worked flawlessly without errors, the UI flow is officially verified and the Phase H gap is closed! Save your screen recording of this process as your demo day backup.
+---
+
+### 🔄 **Phase 3: The Handoff**
+1. **Visual:** When the clock hits 0, the screen automatically transitions.
+2. **Verify:** Look for the title **"Player 1 Finished!"** alongside Player 1's final score delta.
+3. **Action:** (Pretend to pass the device to your opponent!)
+4. **Action:** Click the **"⚔️ START PLAYER 2"** button to resume.
+
+---
+
+### 🛡️ **Phase 4: Player 2's Turn**
+1. **Result:** The UI snaps into a blue-themed **PLAYER 2'S TURN** screen.
+2. **Action:** The 15-second timer drops again. Spam that **"👆 TAP!"** button! 
+   *(Try to score higher or lower than Player 1 to force a clear winner!)*
+
+---
+
+### 🏆 **Phase 5: Victory & On-Chain Commit**
+1. **Visual:** The timer hits 0. The battle concludes!
+2. **Verify:** The massive Victory screen appears: **"Player X Wins!"** (or Tie).
+3. **Check the Math:** 
+   - `Player 1 (Delta: [end] - [start])`
+   - `Player 2 (Delta: [end] - [start])`
+4. **The Grand Finale:** Click the **"📤 Commit Match"** button.
+5. **Result:** Wait ~3 seconds. The status changes to **"Committed!"**, proving the Ephemeral Rollup state has successfully merged back into the Solana Devnet base layer!
+
+---
+
+🎉 **END OF RECORDING** 🎉
+*You nailed it! Stop the capture and prepare your submission!*
