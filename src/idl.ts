@@ -1,0 +1,115 @@
+// MagicBlock Counter Program IDL - deployed on devnet at 79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n
+// We use the counter's increment as our "tap" instruction 
+// The counter PDA is seeded with ["counter"] and is global
+export const COUNTER_IDL = {
+  "address": "79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n",
+  "metadata": {
+    "name": "public_counter",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "commit",
+      "docs": ["Manual commit the account in the ER."],
+      "discriminator": [223, 140, 142, 165, 229, 208, 156, 74],
+      "accounts": [
+        { "name": "payer", "writable": true, "signer": true },
+        { "name": "counter", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [99,111,117,110,116,101,114] }] } },
+        { "name": "magic_program", "address": "Magic11111111111111111111111111111111111111" },
+        { "name": "magic_context", "writable": true, "address": "MagicContext1111111111111111111111111111111" }
+      ],
+      "args": []
+    },
+    {
+      "name": "delegate",
+      "docs": ["Delegate the account to the delegation program"],
+      "discriminator": [90, 147, 75, 178, 85, 88, 4, 137],
+      "accounts": [
+        { "name": "payer", "signer": true },
+        { "name": "buffer_pda", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [98,117,102,102,101,114] }, { "kind": "account", "path": "pda" }], "program": { "kind": "const", "value": [91,107,157,85,55,109,157,70,116,149,186,196,36,114,91,228,47,2,211,54,114,28,59,110,242,96,198,136,43,130,5,5] } } },
+        { "name": "delegation_record_pda", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [100,101,108,101,103,97,116,105,111,110] }, { "kind": "account", "path": "pda" }], "program": { "kind": "account", "path": "delegation_program" } } },
+        { "name": "delegation_metadata_pda", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [100,101,108,101,103,97,116,105,111,110,45,109,101,116,97,100,97,116,97] }, { "kind": "account", "path": "pda" }], "program": { "kind": "account", "path": "delegation_program" } } },
+        { "name": "pda", "docs": ["CHECK The pda to delegate"], "writable": true },
+        { "name": "owner_program", "address": "79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n" },
+        { "name": "delegation_program", "address": "DELeGGvXpWV2fqJUhqcF5ZSYMS4JTLjteaAMARRSaeSh" },
+        { "name": "system_program", "address": "11111111111111111111111111111111" }
+      ],
+      "args": []
+    },
+    {
+      "name": "increment",
+      "docs": ["Increment the counter."],
+      "discriminator": [11, 18, 104, 9, 104, 174, 59, 33],
+      "accounts": [
+        { "name": "counter", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [99,111,117,110,116,101,114] }] } }
+      ],
+      "args": []
+    },
+    {
+      "name": "increment_and_commit",
+      "docs": ["Increment the counter + manual commit the account in the ER."],
+      "discriminator": [1, 27, 135, 183, 234, 124, 35, 207],
+      "accounts": [
+        { "name": "payer", "writable": true, "signer": true },
+        { "name": "counter", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [99,111,117,110,116,101,114] }] } },
+        { "name": "magic_program", "address": "Magic11111111111111111111111111111111111111" },
+        { "name": "magic_context", "writable": true, "address": "MagicContext1111111111111111111111111111111" }
+      ],
+      "args": []
+    },
+    {
+      "name": "increment_and_undelegate",
+      "docs": ["Increment the counter + manual commit and undelegate."],
+      "discriminator": [221, 12, 62, 164, 172, 218, 159, 199],
+      "accounts": [
+        { "name": "payer", "writable": true, "signer": true },
+        { "name": "counter", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [99,111,117,110,116,101,114] }] } },
+        { "name": "magic_program", "address": "Magic11111111111111111111111111111111111111" },
+        { "name": "magic_context", "writable": true, "address": "MagicContext1111111111111111111111111111111" }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "docs": ["Initialize the counter."],
+      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
+      "accounts": [
+        { "name": "counter", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [99,111,117,110,116,101,114] }] } },
+        { "name": "user", "writable": true, "signer": true },
+        { "name": "system_program", "address": "11111111111111111111111111111111" }
+      ],
+      "args": []
+    },
+    {
+      "name": "undelegate",
+      "docs": ["Undelegate the account from the delegation program"],
+      "discriminator": [131, 148, 180, 198, 91, 104, 42, 238],
+      "accounts": [
+        { "name": "payer", "writable": true, "signer": true },
+        { "name": "counter", "writable": true, "pda": { "seeds": [{ "kind": "const", "value": [99,111,117,110,116,101,114] }] } },
+        { "name": "magic_program", "address": "Magic11111111111111111111111111111111111111" },
+        { "name": "magic_context", "writable": true, "address": "MagicContext1111111111111111111111111111111" }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Counter",
+      "discriminator": [255, 176, 4, 245, 188, 253, 124, 25]
+    }
+  ],
+  "types": [
+    {
+      "name": "Counter",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "count", "type": "u64" }
+        ]
+      }
+    }
+  ]
+};

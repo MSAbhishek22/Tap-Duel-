@@ -1,0 +1,21 @@
+--- RAW RPC PROOF ---
+
+[DELEGATE (Base Layer)] 5HUwhequKJtMgKrFSknFu1pSnrFyDw2HBK61ezYavW7ggRLPmVggiGLfg85kAPVwdCAiwyWN3ZM1Dg3NKLg6LVtY
+Slot: 475687515
+Error: null (Success)
+Programs: 11111111111111111111111111111111, 79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n, DELeGGvXpWV2fqJUhqcF5ZSYMS4JTLjteaAMARRSaeSh
+
+[UNDELEGATE (Base Layer)] 3GSeCLpUubvtZ7QxqNEN5qBq3U9R9pYxmWgTpUdoEJZMUztzz2Pf2UtTHYsVEfa5wd4H37dZZCUavyPwbtAwhpnz
+Slot: 475687556
+Error: Failed
+Programs: 79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n
+
+[TAP 1 (Ephemeral Rollup)] 45JrTLHbTWThYEVnxym3jmSmXW4e3cnBuJ8sMmyeby4zYGpgZbveQRCgiupNf4mPyoGef99pJJTPZUGaWBEwvtvP
+Slot: 476355418
+Error: null (Success)
+Programs: 79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n
+
+[TAP 2 (Ephemeral Rollup)] JPMwgxbggUkyEc5urJJdvCHvdqRVfJZVhjTsUtaPEUVLd3GLfAxDKyPC97r68hpFZ8Av6XhrLuutV8CeXEaoN8W
+Slot: 476355427
+Error: null (Success)
+Programs: 79sGyNW41g8TrKyQwk7SZu432SH9ZfHmtRzEtR6CSt3n
