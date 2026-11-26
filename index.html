@@ -13,14 +13,83 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
     <title>Tap Duel ⚡ On-Chain Battles</title>
-  </head>
+  
+<style id="hero3d-style">
+.hero3d-wrap{max-width:1100px;margin:18px auto;padding:0 16px}
+.hero3d-box{position:relative;border-radius:16px;overflow:hidden;background:#0b1020}
+#hero3d{display:block;width:100%;height:min(54vh,420px);min-height:260px;cursor:grab}
+.hero3d-cap{padding:10px 14px;font-size:14px;opacity:.85;text-align:center}
+.scroll-cue{display:block;text-align:center;padding:10px;font-size:15px;text-decoration:none}
+.landing-pso{max-width:1100px;margin:10px auto 26px;padding:0 16px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.landing-pso section{border:1px solid rgba(127,127,127,.35);border-radius:14px;padding:16px}
+.landing-pso h2{margin:0 0 8px;font-size:19px}
+.landing-pso p{margin:0;line-height:1.55}
+@media (prefers-reduced-motion:reduce){.scroll-cue{animation:none}}
+</style>
+</head>
   <body>
-    <div id="root"></div>
+    
+<main id="landing" style="font-family:system-ui,sans-serif;max-width:1100px;margin:0 auto;padding:28px 16px">
+ <h1 style="font-size:32px;margin:0 0 8px">Tap Duel — 15-second on-chain tap battles</h1>
+ <p style="font-size:17px;line-height:1.55;margin:0">A real-time 1v1 clicker game on Solana Ephemeral Rollups. Fifteen seconds, as many taps as you can land.</p>
+</main>
+
+<div class="hero3d-wrap" id="hero3d-wrap">
+ <div class="hero3d-box"><canvas id="hero3d" aria-label="Interactive 3D scene"></canvas></div>
+ <p class="hero3d-cap">A tap duel in 3D: two pads, one bolt of speed between them, and sparks for every tap. Drag to turn it.</p>
+ <a class="scroll-cue" href="#app-pso">&#8595; Scroll to explore</a>
+</div>
+<div class="landing-pso" id="app-pso">
+<section><h2>The problem</h2><p>Fast tap battles do not fit slow, costly on-chain actions. If every tap needed a normal transaction, the game would stall and each round would cost fees.</p></section>
+<section><h2>The solution</h2><p>Tap Duel runs 15-second 1v1 tap rounds on Solana using MagicBlock Ephemeral Rollups, with a built-in burner wallet so a player can start without signing every tap by hand.</p></section>
+<section><h2>The outcome</h2><p>Two players tap against the same counter in real time, the round ends on time, and the score stands on-chain — played on Solana Devnet.</p></section>
+</div><div id="root"></div>
     <script>
       // Polyfill Buffer for Solana web3.js
       import { Buffer } from 'buffer';
       window.Buffer = Buffer;
     </script>
     <script type="module" src="/src/main.tsx"></script>
-  </body>
+  
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module" id="hero3d-module">
+try{
+ const THREE=await import('three').catch(()=>null);
+ const canvas=document.getElementById('hero3d');
+ if(THREE&&canvas){
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,2,0.1,100); camera.position.set(0,1.6,9);
+  scene.add(new THREE.AmbientLight(0xffffff,0.7));
+  const key=new THREE.PointLight(0xffffff,60); key.position.set(4,6,6); scene.add(key);
+  const group=new THREE.Group(); scene.add(group);
+  const M=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.35,metalness:.15},o||{}));
+  const sph=(c,r)=>new THREE.Mesh(new THREE.SphereGeometry(r,24,18),M(c));
+  const box=(c,w,h,d)=>new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M(c));
+  const line=(a,b,c)=>{const g=new THREE.BufferGeometry().setFromPoints([a,b]);return new THREE.Line(g,new THREE.LineBasicMaterial({color:c||0x8ea2ff}));};
+  const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+  
+  const left=sph(0x38bdf8,0.95); left.position.set(-2.1,0,0); group.add(left);
+  const right=sph(0xf472b6,0.95); right.position.set(2.1,0,0); group.add(right);
+  const bolt=new THREE.Mesh(new THREE.OctahedronGeometry(0.55),M(0xfacc15,{emissive:0x664400})); group.add(bolt);
+  const sparks=[];
+  for(let i=0;i<16;i++){const s=sph(i%2?0x38bdf8:0xf472b6,0.09);s.userData.a=i/16*Math.PI*2;group.add(s);sparks.push(s);}
+  var tick=(t)=>{left.scale.setScalar(1+0.1*Math.abs(Math.sin(t*3)));right.scale.setScalar(1+0.1*Math.abs(Math.cos(t*3)));bolt.rotation.y=t*1.4;bolt.position.y=Math.sin(t*2)*0.25;sparks.forEach(s=>{const a=s.userData.a+t*0.9;s.position.set(Math.cos(a)*3.1,Math.sin(a*2)*0.9,Math.sin(a)*1.4);});};
+
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let drag=false,px=0,ry=0.4,rx=0.15;
+  canvas.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(drag){ry+=(e.clientX-px)*0.008;px=e.clientX;}});
+  canvas.addEventListener('pointerup',()=>{drag=false;});
+  function resize(){const w=canvas.clientWidth||800,h=canvas.clientHeight||320;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  window.addEventListener('resize',resize); resize();
+  let t=0;
+  function frame(){ t+=0.016; if(!drag&&!reduced) ry+=0.0035; group.rotation.y=ry; group.rotation.x=rx;
+    if(typeof tick==='function') tick(t);
+    renderer.render(scene,camera); if(!reduced&&!document.hidden) requestAnimationFrame(frame); }
+  frame();
+ }
+}catch(e){/* guarded no-op: page works without WebGL/CDN */}
+</script>
+</body>
 </html>
